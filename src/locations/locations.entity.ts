@@ -1,5 +1,6 @@
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { GeometryDto } from './dto/geometry.dto';
 
 export class Location {
     @ApiProperty()
@@ -21,4 +22,8 @@ export class Location {
     @ApiProperty()
     @Column('text', { array: true })
     readonly tags: Array<string>;
+
+    @ApiProperty({ type: GeometryDto })
+    @Column()
+    readonly geometry: GeometryDto;
 }
