@@ -12,6 +12,8 @@ export class LocationsSeeder {
     ) {}
 
     async execute(): Promise<void> {
+        await this.locationRepository.clear();
+
         for (const locationData of LOCATIONS_SEEDING_DATA) {
             await this.locationRepository
                 .createQueryBuilder()
