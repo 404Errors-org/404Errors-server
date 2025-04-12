@@ -18,4 +18,7 @@ export class RegisterDto {
     })
     @Length(6, 100)
     readonly password: string;
+
+    @ApiProperty()
+    readonly hasDisability: boolean;
 }

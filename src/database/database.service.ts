@@ -7,14 +7,12 @@ import { DatabaseFile } from '../files/files.entity';
 import { join } from 'path';
 import { Location } from '../locations/locations.entity';
 
-process.env.NODE_ENV = 'production';
-
 @Injectable()
 export class DatabaseService {
     constructor(private configService: ConfigService) {}
 
     getTypeOrmConfig(): TypeOrmModuleOptions {
-        const config = {
+        return {
             type: 'postgres',
             host: this.configService.get<string>('PGHOST'),
             port: this.configService.get<number>('PGPORT'),
@@ -29,9 +27,5 @@ export class DatabaseService {
                 rejectUnauthorized: false,
             },
         };
-
-        console.log("CONFIG: ", config);
-        // @ts-ignore
-        return config;
     }
 }

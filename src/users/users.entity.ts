@@ -47,6 +47,10 @@ export class User {
     @Column({ type: "boolean", default: false })
     isAccountVerified: boolean;
 
+    @ApiProperty()
+    @Column({ default: false })
+    hasDisability: boolean;
+
     @OneToOne(() => Token, token => token.user, {
         cascade: true
     })

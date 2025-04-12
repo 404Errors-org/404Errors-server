@@ -1,6 +1,6 @@
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as admin from 'firebase-admin';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../../users/users.service';
 import { UploadFileResponseDto } from './dto/upload-file-response.dto';
 
 @Injectable()
@@ -16,23 +16,23 @@ export class FirebaseStorageService {
         this.firebaseStorage = this.firebaseAdmin.storage();
     }
 
-    async uploadAvatar(userId: string, file: Express.Multer.File): Promise<UploadFileResponseDto> {
+    async uploadFile(
+        userId: string,
+        bucketName: string,
+        file: Express.Multer.File
+    ): Promise<UploadFileResponseDto> {
         try {
-            const user = await this.usersService.getUserById(userId);
             const bucket = this.firebaseStorage.bucket();
-            const filePath = `uploads/avatars/${userId}`;
+            const filePath = `uploads/${bucketName}/${userId}`;
 
             const fileUpload = bucket.file(filePath);
             await fileUpload.save(file.buffer, { metadata: { contentType: file.mimetype, } });
 
+            const expiresDate = new Date();
             const [url] = await fileUpload.getSignedUrl({
                 action: 'read',
-                expires: '12-31-2025',
+                expires: expiresDate.setFullYear(expiresDate.getFullYear() + 2)
             });
-
-            user.avatarImageUrl = url;
-            user.isAvatarSet = true;
-            await this.usersService.saveUser(user);
 
             return { url };
         } catch (error) {

@@ -10,6 +10,8 @@ import { ExceptionMessage} from "../utils/exception-message.enum";
 import { AuthorizationResponseDto } from "./dto/authorization-response.dto";
 import { EmailService } from '../email/services/email.service';
 import { ConfirmAuthDto } from './dto/confirm-auth.dto';
+import { FirebaseStorageService } from '../firebase/firebase-storage/firebase-storage.service';
+import { STORAGE_BUCKETS } from '../utils/constants';
 
 @Injectable()
 export class AuthService {
@@ -18,9 +20,13 @@ export class AuthService {
         private readonly usersService: UsersService,
         private readonly tokensService: TokensService,
         private readonly emailService: EmailService,
+        private readonly firebaseStorageService: FirebaseStorageService,
     ) {}
 
-    async registration(registerDto: RegisterDto): Promise<void> {
+    async registration(
+        registerDto: RegisterDto,
+        disabilityCertification: Express.Multer.File
+    ): Promise<void> {
         const hashedPassword = await bcrypt.hash(registerDto.password, 6);
         const confirmationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -29,6 +35,14 @@ export class AuthService {
             confirmationCode,
             password: hashedPassword
         });
+
+        if (registerDto.hasDisability) {
+            await this.firebaseStorageService.uploadFile(
+                registeredUser.id,
+                STORAGE_BUCKETS.DISABILITY_CERTIFICATION,
+                disabilityCertification
+            );
+        }
 
         await this.emailService.sendVerificationCodeByEmail(registeredUser.email, confirmationCode);
     }

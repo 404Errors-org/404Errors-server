@@ -5,10 +5,10 @@ import {
     HttpException,
     HttpStatus,
     Patch,
-    Post,
-    UseGuards,
+    Post, UploadedFile,
+    UseGuards, UseInterceptors,
     UsePipes,
-    ValidationPipe
+    ValidationPipe,
 } from '@nestjs/common';
 import {RegisterDto} from "./dto/register.dto";
 import {AuthService} from "./auth.service";
@@ -20,19 +20,23 @@ import {UserId} from "../decorators/user-id.decorator";
 import {AuthGuard} from "./auth.guard";
 import {AuthorizationResponseDto} from "./dto/authorization-response.dto";
 import { ConfirmAuthDto } from './dto/confirm-auth.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')
 export class AuthController {
-    
     constructor(private readonly authService: AuthService) {}
     
     @ApiOperation({ summary: "Registration" })
     @ApiResponse({ status: HttpStatus.OK })
     @ApiBody({ type: RegisterDto })
-    @Post("registration")
+    @UseInterceptors(FileInterceptor('file'))
     @UsePipes(ValidationPipe)
-    async registration(@Body() registerDto: RegisterDto): Promise<void> {
-        return this.authService.registration(registerDto);
+    @Post("registration")
+    async registration(
+        @Body() registerDto: RegisterDto,
+        @UploadedFile() file: Express.Multer.File,
+    ): Promise<void> {
+        return this.authService.registration(registerDto, file);
     }
 
     @ApiOperation({ summary: "Confirm registration" })

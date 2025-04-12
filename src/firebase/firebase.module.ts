@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
-import { FirebaseStorageService } from './firebase-storage.service';
+import { FirebaseStorageService } from './firebase-storage/firebase-storage.service';
 import * as admin from "firebase-admin";
 import { ConfigService } from '@nestjs/config';
-import { FirebaseStorageController } from './firebase-storage.controller';
+import { FirebaseStorageController } from './firebase-storage/firebase-storage.controller';
 import { UsersModule } from '../users/users.module';
 
 @Global()

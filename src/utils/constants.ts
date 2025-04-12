@@ -8,3 +8,8 @@ export const jwtConstants =  {
         expiresIn: "336h"
     },
 };
+
+export const STORAGE_BUCKETS = {
+    DISABILITY_CERTIFICATION: 'disability-certification',
+    AVATAR: 'avatar',
+} as const;
