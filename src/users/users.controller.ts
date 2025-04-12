@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, HttpException, HttpStatus, Param, Query, Req, UseGuards } from '@nestjs/common';
 import {UsersService} from "./users.service";
 import {User} from "./users.entity";
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import {UserId} from "../decorators/user-id.decorator";
 import { AuthGuard } from 'src/auth/auth.guard';
 import { UserRepository } from './user-repository.abstract';
@@ -41,8 +41,9 @@ export class UsersController {
             "you have to take this param in your API url"
     })
     @ApiResponse({type: User, status: 200})
-    @Get()
-    async getUserByUsername(@Query("username") username: string): Promise<User> {
+    @ApiParam({ name: "username", required: true, type: String })
+    @Get('username/:username')
+    async getUserByUsername(@Param("username") username: string): Promise<User> {
         return this.usersService.getUserByUsername(username)
     }
     
@@ -51,9 +52,10 @@ export class UsersController {
         description: "This function returns USER entity, witch takes one string param - email, " +
             "you have to take this param in your API url"
     })
+    @ApiParam({ name: "email", required: true, type: String })
     @ApiResponse({type: User, status: 200})
-    @Get()
-    async getUserByEmail(@Query("email") email: string): Promise<User> {
+    @Get('email/:email')
+    async getUserByEmail(@Param("email") email: string): Promise<User> {
         return this.usersService.getUserByEmail(email)
     }
     
