@@ -4,7 +4,6 @@ import { Location } from './locations.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, Repository } from 'typeorm';
 import { ExceptionMessage } from '../utils/exception-message.enum';
-import { User } from '../users/users.entity';
 import { LocationsFilterDto } from './dto/locations-filter.dto';
 import { LocationCategoriesDto } from './dto/location-types.dto';
 

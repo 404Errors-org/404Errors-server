@@ -7,6 +7,8 @@ import { DatabaseFile } from '../files/files.entity';
 import { join } from 'path';
 import { Location } from '../locations/locations.entity';
 
+process.env.NODE_ENV = 'development';
+
 @Injectable()
 export class DatabaseService {
     constructor(private configService: ConfigService) {}
