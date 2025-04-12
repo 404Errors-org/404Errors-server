@@ -6,6 +6,7 @@ import { InsertResult, Repository } from 'typeorm';
 import { ExceptionMessage } from '../utils/exception-message.enum';
 import { User } from '../users/users.entity';
 import { LocationsFilterDto } from './dto/locations-filter.dto';
+import { LocationCategoriesDto } from './dto/location-types.dto';
 
 @Injectable()
 export class LocationsService {
@@ -38,10 +39,24 @@ export class LocationsService {
             .getOne();
     }
 
-    async getLocationsByTags(locationsFilterDto: LocationsFilterDto): Promise<Array<Location>> {
+    async getLocationsByTags(
+        locationsFilterDto: LocationsFilterDto,
+        locationCategoriesDto: LocationCategoriesDto
+    ): Promise<Array<Location>> {
         const getLocationsQuery = this.locationRepository.createQueryBuilder();
 
-        if (locationsFilterDto.tags && locationsFilterDto.tags.length > 0) {
+        if (
+            locationCategoriesDto.categories
+            && locationCategoriesDto.categories.length
+        ) {
+            getLocationsQuery
+                .andWhere('type IN (:...categories', { categories: locationCategoriesDto.categories });
+        }
+
+        if (
+            locationsFilterDto.tags
+            && locationsFilterDto.tags.length
+        ) {
             getLocationsQuery
                 .andWhere('tags @> ARRAY[:...tags]', { tags: locationsFilterDto.tags });
         }

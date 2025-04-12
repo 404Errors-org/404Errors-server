@@ -5,6 +5,7 @@ import { Location } from './locations.entity';
 import { ApiBody, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
 import { LocationsFilterDto } from './dto/locations-filter.dto';
+import { LocationCategoriesDto } from './dto/location-types.dto';
 
 @UseGuards(AuthGuard)
 @Controller('locations')
@@ -23,8 +24,11 @@ export class LocationsController {
     @ApiResponse({ type: [Location], status: HttpStatus.OK })
     @ApiQuery({ type: LocationsFilterDto })
     @Get()
-    async getLocationsByTags(@Query() locationsFilterDto: LocationsFilterDto): Promise<Array<Location>> {
-        return this.locationsService.getLocationsByTags(locationsFilterDto);
+    async getLocationsByTags(
+        @Query() locationsFilterDto: LocationsFilterDto,
+        @Query() locationCategoriesDto: LocationCategoriesDto,
+    ): Promise<Array<Location>> {
+        return this.locationsService.getLocationsByTags(locationsFilterDto, locationCategoriesDto);
     }
 
     @ApiOperation({ summary: 'Getting location by default id' })
