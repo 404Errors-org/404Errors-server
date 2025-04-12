@@ -50,7 +50,7 @@ export class LocationsService {
             && locationCategoriesDto.categories.length
         ) {
             getLocationsQuery
-                .andWhere('type IN (:...categories)', { categories: locationCategoriesDto.categories });
+                .andWhere('category IN (:...categories)', { categories: locationCategoriesDto.categories });
         }
 
         if (
@@ -58,7 +58,7 @@ export class LocationsService {
             && locationsFilterDto.tags.length
         ) {
             getLocationsQuery
-                .andWhere('tags @> ARRAY[:...tags]', { tags: locationsFilterDto.tags });
+                .andWhere('tags @> :tags', { tags: locationsFilterDto.tags });
         }
 
         return await getLocationsQuery.getMany();

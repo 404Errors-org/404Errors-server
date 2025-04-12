@@ -23,9 +23,12 @@ export class LocationsController {
     @ApiResponse({ type: [Location], status: HttpStatus.OK })
     @Get()
     async getLocationsByTags(
-        @Query() locationsFilterDto: LocationsFilterDto,
-        @Query() locationCategoriesDto: LocationCategoriesDto,
+        @Query('tags') rawTags?: string,
+        @Query('categories') rawCategories?: string,
     ): Promise<Array<Location>> {
+        const locationsFilterDto: LocationsFilterDto = { tags: rawTags ? JSON.parse(rawTags) : [] };
+        const locationCategoriesDto: LocationCategoriesDto = { categories: rawCategories ? JSON.parse(rawCategories) : [] };
+
         return this.locationsService.getLocationsByTags(locationsFilterDto, locationCategoriesDto);
     }
 

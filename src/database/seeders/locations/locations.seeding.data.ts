@@ -2,7 +2,7 @@ import { GeometryDto } from '../../../locations/dto/geometry.dto';
 
 export class LocationSeedingDto {
     readonly name: string;
-    readonly type: string;
+    readonly    category: string;
     readonly phoneNumber: string;
     readonly tags: Array<string>;
     readonly geometry: GeometryDto;
@@ -12,7 +12,7 @@ export class LocationSeedingDto {
 export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     {
         name: "New-York-Street Pizza",
-        type: "restaurant",
+    category: "restaurant",
         phoneNumber: "380478291847",
         locationDefaultId: "loc_001",
         tags: ["toilet", "ramp"],
@@ -23,7 +23,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "ОККО",
-        type: "fuel",
+        category: "fuel",
         phoneNumber: "380676764906",
         locationDefaultId: "loc_002",
         tags: ["toilet", "movement"],
@@ -34,7 +34,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "Медичний центр Ехокор",
-        type: "hospital",
+        category: "hospital",
         phoneNumber: "380323361250",
         locationDefaultId: "loc_003",
         tags: ["tactile", "movement"],
@@ -45,7 +45,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "Укрпошта",
-        type: "postoffice",
+        category: "postoffice",
         phoneNumber: "380322222295",
         locationDefaultId: "loc_004",
         tags: ["toilet", "ramp", "movement"],
@@ -56,7 +56,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "Цепелін",
-        type: "restaurant",
+        category: "restaurant",
         phoneNumber: "380679922022",
         locationDefaultId: "loc_005",
         tags: ["toilet", "ramp"],
@@ -67,7 +67,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "D.S.",
-        type: "pharmacy",
+        category: "pharmacy",
         phoneNumber: "380322453884",
         locationDefaultId: "loc_006",
         tags: ["entrance", "ramp"],
@@ -78,7 +78,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "Близенько",
-        type: "foodmarket",
+        category: "foodmarket",
         phoneNumber: "380322453884",
         locationDefaultId: "loc_007",
         tags: ["tactile", "ramp"],
@@ -89,7 +89,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "Ощадбанк",
-        type: "bank",
+        category: "bank",
         phoneNumber: "380322674591",
         locationDefaultId: "loc_008",
         tags: ["tactile", "entrance"],
@@ -100,7 +100,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "BANKHOTEL",
-        type: "hotel",
+        category: "hotel",
         phoneNumber: "380682975020",
         locationDefaultId: "loc_009",
         tags: ["movement", "toilet"],
@@ -111,7 +111,7 @@ export const LOCATIONS_SEEDING_DATA: Array<LocationSeedingDto> = [
     },
     {
         name: "Park. Art of Rest",
-        type: "park",
+        category: "park",
         phoneNumber: "380670082222",
         locationDefaultId: "loc_010",
         tags: ["movement", "entrance"],
