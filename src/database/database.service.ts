@@ -19,7 +19,7 @@ export class DatabaseService {
             password: this.configService.get<string>('PGPASSWORD'),
             database: this.configService.get<string>('PGDATABASE'),
             entities: [User, Token, DatabaseFile],
-            synchronize: false,
+            synchronize: true,
             migrations: [join(__dirname, 'migrations/*.{js,ts}')],
             logging: true,
             ssl: {

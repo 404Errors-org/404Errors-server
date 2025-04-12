@@ -12,7 +12,6 @@ async function bootstrap() {
     const PORT = configService.get<string>("PORT") || 9000;
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     app.enableCors();
-
     const config = new DocumentBuilder()
         .setTitle("Rubicon API documentation")
         .setDescription("Here you, as will be able all data from backend")
