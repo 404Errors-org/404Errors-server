@@ -25,10 +25,10 @@ export class AuthService {
 
     async registration(
         registerDto: RegisterDto,
-        disabilityCertification: Express.Multer.File
+        disabilityCertification?: Express.Multer.File
     ): Promise<void> {
         const hashedPassword = await bcrypt.hash(registerDto.password, 6);
-        const confirmationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const confirmationCode = this.generateConfirmationCode();
 
         const registeredUser = await this.usersService.createUser({
             ...registerDto,
@@ -49,7 +49,7 @@ export class AuthService {
 
     async login(loginDto: LoginDto): Promise<void> {
         const user = await this.validateUser(loginDto);
-        const confirmationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const confirmationCode = this.generateConfirmationCode();
 
         user.confirmationCode = confirmationCode;
         await this.usersService.saveUser(user);
@@ -114,5 +114,9 @@ export class AuthService {
         const hashedPassword = await bcrypt.hash(changePasswordDto.password, 5);
         user.password = hashedPassword;
         return user;
+    }
+
+    private generateConfirmationCode() {
+        return Math.floor(100000 + Math.random() * 900000).toString();
     }
 }

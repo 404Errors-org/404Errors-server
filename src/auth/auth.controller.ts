@@ -34,7 +34,7 @@ export class AuthController {
     @Post("registration")
     async registration(
         @Body() registerDto: RegisterDto,
-        @UploadedFile() file: Express.Multer.File,
+        @UploadedFile() file?: Express.Multer.File,
     ): Promise<void> {
         return this.authService.registration(registerDto, file);
     }
