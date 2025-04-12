@@ -7,7 +7,6 @@ import { AuthGuard } from '../auth/auth.guard';
 import { LocationsFilterDto } from './dto/locations-filter.dto';
 import { LocationCategoriesDto } from './dto/location-types.dto';
 
-@UseGuards(AuthGuard)
 @Controller('locations')
 export class LocationsController {
     constructor(private readonly locationsService: LocationsService) {}
@@ -22,7 +21,6 @@ export class LocationsController {
 
     @ApiOperation({ summary: 'Getting locations with filter by tags (toilet, ramp, ...)' })
     @ApiResponse({ type: [Location], status: HttpStatus.OK })
-    @ApiQuery({ type: LocationsFilterDto })
     @Get()
     async getLocationsByTags(
         @Query() locationsFilterDto: LocationsFilterDto,
