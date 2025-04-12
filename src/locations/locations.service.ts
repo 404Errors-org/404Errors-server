@@ -50,7 +50,7 @@ export class LocationsService {
             && locationCategoriesDto.categories.length
         ) {
             getLocationsQuery
-                .andWhere('type IN (:...categories', { categories: locationCategoriesDto.categories });
+                .andWhere('type IN (:...categories)', { categories: locationCategoriesDto.categories });
         }
 
         if (
