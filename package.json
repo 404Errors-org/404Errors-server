@@ -27,7 +27,9 @@
     "migration:revert:all:dev": "cross-env NODE_ENV=development bash -c 'for i in {1..100}; do yarn migration:revert:dev; done'",
     "migration:run:prod": "NODE=production nest build && echo 'Build completed' && node ./node_modules/typeorm/cli.js migration:run -d ./dist/database/data-source.js && echo 'Migration run completed'",
     "migration:revert:prod": "NODE=production ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/database/data-source.ts",
-    "migration:revert:all:prod": "cross-env NODE_ENV=production bash -c 'for i in {1..100}; do yarn migration:revert:dev; done'"
+    "migration:revert:all:prod": "cross-env NODE_ENV=production bash -c 'for i in {1..100}; do yarn migration:revert:dev; done'",
+    "seed:dev:locations": "NODE=development ts-node src/database/seeders/locations/runner.ts",
+    "seed:prod:locations": "NODE=production ts-node src/database/seeders/locations/runner.ts"
   },
   "dependencies": {
     "@appland/appmap": "^3.175.0",

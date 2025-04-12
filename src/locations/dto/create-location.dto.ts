@@ -5,6 +5,9 @@ export class CreateLocationDto {
     readonly name: string;
 
     @ApiProperty()
+    readonly type: string;
+
+    @ApiProperty()
     readonly phoneNumber: string;
 
     @ApiProperty()

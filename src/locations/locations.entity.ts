@@ -1,7 +1,8 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { GeometryDto } from './dto/geometry.dto';
 
+@Entity()
 export class Location {
     @ApiProperty()
     @PrimaryGeneratedColumn("uuid")
@@ -13,6 +14,10 @@ export class Location {
 
     @ApiProperty()
     @Column()
+    readonly type: string;
+
+    @ApiProperty()
+    @Column({ nullable: true })
     readonly phoneNumber: string;
 
     @ApiProperty()
@@ -24,6 +29,6 @@ export class Location {
     readonly tags: Array<string>;
 
     @ApiProperty({ type: GeometryDto })
-    @Column()
+    @Column({ type: 'jsonb' })
     readonly geometry: GeometryDto;
 }

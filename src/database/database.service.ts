@@ -5,20 +5,23 @@ import { User } from '../users/users.entity';
 import { Token } from '../tokens/tokens.entity';
 import { DatabaseFile } from '../files/files.entity';
 import { join } from 'path';
+import { Location } from '../locations/locations.entity';
+
+process.env.NODE_ENV = 'production';
 
 @Injectable()
 export class DatabaseService {
     constructor(private configService: ConfigService) {}
 
     getTypeOrmConfig(): TypeOrmModuleOptions {
-        return {
+        const config = {
             type: 'postgres',
             host: this.configService.get<string>('PGHOST'),
             port: this.configService.get<number>('PGPORT'),
             username: this.configService.get<string>('PGUSER'),
             password: this.configService.get<string>('PGPASSWORD'),
             database: this.configService.get<string>('PGDATABASE'),
-            entities: [User, Token, DatabaseFile],
+            entities: [User, Token, DatabaseFile, Location],
             synchronize: true,
             migrations: [join(__dirname, 'migrations/*.{js,ts}')],
             logging: true,
@@ -26,5 +29,9 @@ export class DatabaseService {
                 rejectUnauthorized: false,
             },
         };
+
+        console.log("CONFIG: ", config);
+        // @ts-ignore
+        return config;
     }
 }
