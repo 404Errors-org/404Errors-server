@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import {dataSourceOptions} from "./database/data-source";
 import { EmailModule } from './email/email.module';
 import * as dotenv from "dotenv";
 import * as process from "node:process";
@@ -15,6 +14,8 @@ import {ServeStaticModule} from "@nestjs/serve-static";
 import * as path from "node:path";
 import { jwtConstants } from './utils/constants';
 import { FirebaseModule } from './firebase/firebase.module';
+import { DatabaseService } from './database/database.service';
+import { DatabaseModule } from './database/database.module';
 dotenv.config();
 
 @Module({
@@ -26,7 +27,12 @@ dotenv.config();
             envFilePath: `.${process.env.NODE_ENV}.env`
         }),
         FirebaseModule,
-        TypeOrmModule.forRoot(dataSourceOptions),
+        TypeOrmModule.forRootAsync({
+            imports: [DatabaseModule],
+            inject: [DatabaseService],
+            useFactory: (databaseService: DatabaseService) =>
+                databaseService.getTypeOrmConfig(),
+        }),
         ConfigModule.forRoot(),
         JwtModule.register({
             secret: jwtConstants.secretKey,
