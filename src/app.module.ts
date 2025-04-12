@@ -16,6 +16,7 @@ import { jwtConstants } from './utils/constants';
 import { FirebaseModule } from './firebase/firebase.module';
 import { DatabaseService } from './database/database.service';
 import { DatabaseModule } from './database/database.module';
+import { LocationsModule } from './locations/locations.module';
 dotenv.config();
 
 @Module({
@@ -48,7 +49,8 @@ dotenv.config();
         EmailModule,
         TokensModule,
         FilesModule,
-        MulterModule.register({ dest: "./uploads" })],
+        MulterModule.register({ dest: "./uploads" }),
+        LocationsModule],
     exports: [
         TypeOrmModule,
         JwtModule

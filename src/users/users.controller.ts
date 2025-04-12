@@ -20,7 +20,7 @@ export class UsersController {
         description: "This function returns all user entities, witch does not take any params"
     })
     @ApiResponse({type: [User], status: 200})
-    @Get("/get-users")
+    @Get()
     async getUsers(@Query() paginationDto: PaginationDto): Promise<User[]> {
         return this.usersService.getUsers(paginationDto);
     }
@@ -41,7 +41,7 @@ export class UsersController {
             "you have to take this param in your API url"
     })
     @ApiResponse({type: User, status: 200})
-    @Get("/by-username")
+    @Get()
     async getUserByUsername(@Query("username") username: string): Promise<User> {
         return this.usersService.getUserByUsername(username)
     }
@@ -52,7 +52,7 @@ export class UsersController {
             "you have to take this param in your API url"
     })
     @ApiResponse({type: User, status: 200})
-    @Get("/by-email")
+    @Get()
     async getUserByEmail(@Query("email") email: string): Promise<User> {
         return this.usersService.getUserByEmail(email)
     }
@@ -63,12 +63,12 @@ export class UsersController {
             "username, email, avatarImageUrl"
     })
     @ApiResponse({type: User, status: 200})
-    @Get("/get-user-profile")
+    @Get("profile")
     async getUserProfile(@UserId() userId: string): Promise<GetUserProfileDto> {
         return this.usersService.getUserProfile(userId)
     }
 
-    @Delete("/delete-account")
+    @Delete()
     async deleteUserAccount(@UserId() userId: string): Promise<User> {
         return this.usersService.deleteUserAccount(userId)
     }

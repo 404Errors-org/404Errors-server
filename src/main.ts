@@ -13,10 +13,10 @@ async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     app.enableCors();
     const config = new DocumentBuilder()
-        .setTitle("Rubicon API documentation")
+        .setTitle("404Errors API documentation")
         .setDescription("Here you, as will be able all data from backend")
         .setVersion("1.0.0")
-        .addTag("Yuriy")
+        .addTag("404Errors")
         .build();
 
     app.useStaticAssets(join(__dirname, '..', 'uploads'), {
