@@ -3,16 +3,12 @@ import {
     CreateDateColumn,
     Entity,
     JoinColumn,
-    OneToMany,
     OneToOne,
     PrimaryGeneratedColumn, Unique, UpdateDateColumn,
 } from 'typeorm';
 import {Token} from "../tokens/tokens.entity";
 import {ApiProperty} from "@nestjs/swagger";
 import {GetUserProfileDto} from "./dto/get-user-profile.dto";
-import {SavedPlace} from "../saved-places/saved-places.entity";
-import {Chat} from "../chat-manager/enitities/chat.entity";
-import {ChatRequest} from "../chat-manager/enitities/chat-request.entity";
 import {DatabaseFile} from "../files/files.entity";
 
 @Entity({ name: "user" })
@@ -55,21 +51,6 @@ export class User {
         cascade: true
     })
     token: Token;
-
-    @OneToMany(() => SavedPlace, savedPlaces => savedPlaces.user, {
-        cascade: true
-    })
-    savedPlaces: SavedPlace[];
-
-    @OneToMany(() => Chat, chat => chat.user, {
-        cascade: true
-    })
-    chats: Chat[];
-
-    @OneToMany(() => ChatRequest, chatRequests => chatRequests.user, {
-        cascade: true
-    })
-    chatRequests: ChatRequest[];
 
     @OneToOne(() => DatabaseFile, file => file.user, {
         cascade: true
