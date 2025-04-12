@@ -28,8 +28,8 @@ export class LocationsService {
           .values(createLocationDto)
           .execute();
 
-        const user = locationInsertResult.raw[0] as User;
-        return await this.locationRepository.save(user);
+        const locationResponse = locationInsertResult.raw[0] as Location;
+        return await this.locationRepository.save(locationResponse);
     }
 
     async getLocationByDefaultId(locationDefaultId: string): Promise<Location | null> {

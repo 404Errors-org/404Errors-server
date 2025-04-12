@@ -14,7 +14,7 @@ export class Location {
 
     @ApiProperty()
     @Column()
-    readonly type: string;
+    readonly category: string;
 
     @ApiProperty()
     @Column({ nullable: true })
