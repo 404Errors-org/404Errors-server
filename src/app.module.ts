@@ -50,7 +50,8 @@ dotenv.config();
         TokensModule,
         FilesModule,
         MulterModule.register({ dest: "./uploads" }),
-        LocationsModule],
+        LocationsModule
+    ],
     exports: [
         TypeOrmModule,
         JwtModule
