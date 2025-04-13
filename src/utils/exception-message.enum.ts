@@ -17,5 +17,6 @@ export enum ExceptionMessage {
     CONFIRMATION_CODES_DONT_MATCH="Confirm codes don`t match",
     LOCATION_NOT_FOUND="Location not found",
     USER_ALREADY_LEFT_FEEDBACK="You already left feedback",
-    ONLY_DISABLED_PERSON_CAN_CHANGE_RATE="Only disabled person can change the rate"
+    ONLY_DISABLED_PERSON_CAN_CHANGE_RATE="Only disabled person can change the rate",
+    USER_ALREADY_LEFT_SUGGESTION="You already left suggestion to this location",
 }
