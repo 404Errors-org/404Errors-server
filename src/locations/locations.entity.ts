@@ -42,7 +42,7 @@ export class Location {
     geometry: GeometryDto;
 
     @ApiProperty()
-    @Column({ default: 10 })
+    @Column({ type: 'float', default: 10 })
     rating: number;
 
     @ApiProperty()
