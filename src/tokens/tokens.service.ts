@@ -25,8 +25,8 @@ export class TokensService {
 
     async generateToken(userData?: User): Promise<Token> {
         try {
-            const { id, username, email } = userData;
-            const payload = { id, username, email };
+            const { id, username, email, hasDisability } = userData;
+            const payload = { id, username, email, hasDisability };
 
             const tokenValue = this.assignToken(payload);
 
@@ -38,14 +38,14 @@ export class TokensService {
     }
 
     async updateToken(userData?: User): Promise<Token | null> {
-        const { id, username, email } = userData;
+        const { id, username, email, hasDisability } = userData;
         const token = await this.tokenRepository.findOne({ where: { user: { id } } });
 
         if (!token) {
             throw new NotFoundException(ExceptionMessage.TOKEN_NOT_FOUND);
         }
             
-        const payload = { id, username, email };
+        const payload = { id, username, email, hasDisability };
         token.token = this.assignToken(payload);
         return this.saveToken(token);
     }
@@ -55,7 +55,7 @@ export class TokensService {
     }
 
     async findToken(userData: User): Promise<Token> {
-        return await this.tokenRepository.findOne({ where: {user: userData} });
+        return await this.tokenRepository.findOne({ where: { user: userData } });
     }
 
     async deleteToken(token: Token): Promise<DeleteResult> {
