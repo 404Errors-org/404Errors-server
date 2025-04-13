@@ -18,7 +18,7 @@ export class FeedbacksController {
     @Post()
     async createFeedback(
         @UserId() userId: string,
-        @Query() locationId: string,
+        @Query('locationId') locationId: string,
         @Body() createFeedbackDto: CreateFeedbackDto
     ): Promise<Feedback> {
         return this.feedbackService.createFeedback(userId, locationId, createFeedbackDto);

@@ -8,5 +8,5 @@ export class CreateFeedbackDto {
     @ApiProperty()
     @Min(1)
     @Max(10)
-    readonly rating: number;
+    readonly rate: number;
 }

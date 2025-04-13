@@ -1,4 +1,4 @@
-import { Column, ManyToOne, PrimaryGeneratedColumn, JoinColumn, Entity } from 'typeorm';
+import { Column, ManyToOne, PrimaryGeneratedColumn, JoinColumn, JoinTable, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Location } from '../locations/locations.entity';
 import { User } from '../users/users.entity';
@@ -14,14 +14,14 @@ export class Feedback {
     readonly content: string;
 
     @ApiProperty()
-    @Column()
+    @Column({ default: 10 })
     readonly rate: number;
 
     @ManyToOne(() => Location, location => location.feedbacks)
-    @JoinColumn()
+    @JoinTable()
     readonly location: Location;
 
     @ManyToOne(() => User, (user) => user.feedbacks)
-    @JoinColumn()
+    @JoinTable()
     readonly user: User;
 }

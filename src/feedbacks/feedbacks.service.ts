@@ -21,8 +21,13 @@ export class FeedbacksService {
         locationId: string,
         createFeedbackDto: CreateFeedbackDto,
     ): Promise<Feedback> {
-        const user = await this.usersService.getUser(userId);
-        if (user) {
+        const user = await this.usersService.getUserById(userId);
+        const existingFeedbackByUser = await this.feedbackRepository
+            .createQueryBuilder()
+            .where('user = :userId', { userId: user.id })
+            .getOne();
+
+        if (existingFeedbackByUser) {
             throw new BadRequestException(ExceptionMessage.USER_ALREADY_LEFT_FEEDBACK);
         }
 
@@ -44,16 +49,14 @@ export class FeedbacksService {
 
         const locationFeedbacks = await this.getFeedbacksByLocation(locationId);
 
-        if (locationFeedbacks && locationFeedbacks.length) {
-            let totalRating = 0;
-            for (const feedback of locationFeedbacks) {
-                totalRating += feedback.rate;
-            }
-
-            const averageRating = totalRating / locationFeedbacks.length;
-            location.rating = averageRating;
-            await this.locationsService.save(location);
+        let totalRating = createFeedbackDto.rate;
+        for (const feedback of locationFeedbacks) {
+            totalRating += feedback.rate;
         }
+
+        const averageRating = Math.round((totalRating / locationFeedbacks.length) * 10) / 10;
+        location.rating = averageRating;
+        await this.locationsService.save(location);
 
         return feedbackResponse;
     }
@@ -62,8 +65,9 @@ export class FeedbacksService {
         const location = await this.locationsService.getLocationById(locationId);
 
         return this.feedbackRepository
-            .createQueryBuilder()
-            .where('locationId := locationId', { locationId: location.id })
+            .createQueryBuilder('feedback')
+            .leftJoin('feedback.location', 'location')
+            .where('location.id = :locationId', { locationId: location.id })
             .getMany();
     }
 }
