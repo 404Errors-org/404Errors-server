@@ -36,7 +36,7 @@ export class AuthService {
             password: hashedPassword
         });
 
-        if (registerDto.hasDisability) {
+        if (registerDto.hasDisability && disabilityCertification) {
             await this.firebaseStorageService.uploadFile(
                 registeredUser.id,
                 STORAGE_BUCKETS.DISABILITY_CERTIFICATION,
