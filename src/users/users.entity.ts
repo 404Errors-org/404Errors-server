@@ -11,6 +11,7 @@ import {ApiProperty} from "@nestjs/swagger";
 import {GetUserProfileDto} from "./dto/get-user-profile.dto";
 import {DatabaseFile} from "../files/files.entity";
 import { Feedback } from '../feedbacks/feedbacks.entity';
+import { Suggestion } from '../suggestions/suggestions.entity';
 
 @Entity({ name: "user" })
 @Unique(["email"])
@@ -65,6 +66,9 @@ export class User {
 
     @OneToMany(() => Feedback, feedback => feedback.user, { onDelete: "CASCADE" })
     feedbacks: Array<Feedback>;
+
+    @OneToMany(() => Suggestion, suggestion => suggestion.user)
+    suggestions: Array<Suggestion>;
 
     @CreateDateColumn()
     createdAt: Date;
