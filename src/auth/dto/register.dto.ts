@@ -1,5 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 import {ApiProperty} from "@nestjs/swagger";
+import { Transform } from 'class-transformer';
 
 
 export class RegisterDto {
@@ -20,5 +21,6 @@ export class RegisterDto {
     readonly password: string;
 
     @ApiProperty()
+    @Transform(({ value }) => value === 'string')
     readonly hasDisability: boolean;
 }

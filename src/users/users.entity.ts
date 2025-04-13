@@ -49,7 +49,7 @@ export class User {
     isAccountVerified: boolean;
 
     @ApiProperty()
-    @Column({ default: false })
+    @Column()
     hasDisability: boolean;
 
     @OneToOne(() => Token, token => token.user, {

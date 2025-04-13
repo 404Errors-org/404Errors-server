@@ -44,6 +44,8 @@ export class AuthService {
             );
         }
 
+        registeredUser.hasDisability = true;
+        await this.usersService.saveUser(registeredUser);
         await this.emailService.sendVerificationCodeByEmail(registeredUser.email, confirmationCode);
     }
 
@@ -61,7 +63,7 @@ export class AuthService {
         const user = await this.usersService.getUserByEmail(email);
 
         if (user.confirmationCode !== confirmationCode) {
-            throw new BadRequestException(ExceptionMessage.PASSWORDS_DONT_MATCH);
+            throw new BadRequestException(ExceptionMessage.CONFIRMATION_CODES_DONT_MATCH);
         }
 
         const token = await this.tokensService.generateToken(user);
