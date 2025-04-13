@@ -128,7 +128,7 @@ export class UsersService extends UserRepository {
     async getUser(id: string): Promise<User | null> {
         return this.usersRepository
             .createQueryBuilder()
-            .where('id := id', { id })
+            .where('id = :id', { id })
             .getOne();
     }
 }
