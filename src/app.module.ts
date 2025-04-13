@@ -18,6 +18,7 @@ import { DatabaseService } from './database/database.service';
 import { DatabaseModule } from './database/database.module';
 import { LocationsModule } from './locations/locations.module';
 import { FeedbacksModule } from './feedbacks/feedbacks.module';
+import { SuggestionsModule } from './suggestions/suggestions.module';
 dotenv.config();
 
 @Module({
@@ -52,7 +53,8 @@ dotenv.config();
         FilesModule,
         MulterModule.register({ dest: "./uploads" }),
         LocationsModule,
-        FeedbacksModule
+        FeedbacksModule,
+        SuggestionsModule
     ],
     exports: [
         TypeOrmModule,
