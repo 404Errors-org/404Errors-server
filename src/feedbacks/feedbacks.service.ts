@@ -23,8 +23,9 @@ export class FeedbacksService {
     ): Promise<Feedback> {
         const user = await this.usersService.getUserById(userId);
         const existingFeedbackByUser = await this.feedbackRepository
-            .createQueryBuilder()
-            .where('user = :userId', { userId: user.id })
+            .createQueryBuilder('feedback')
+            .leftJoin('feedback.user', 'user')
+            .where('user.id = :userId', { userId: user.id })
             .getOne();
 
         if (existingFeedbackByUser) {
@@ -67,7 +68,9 @@ export class FeedbacksService {
         return this.feedbackRepository
             .createQueryBuilder('feedback')
             .leftJoin('feedback.location', 'location')
+            .leftJoinAndSelect('feedback.user', 'user')
             .where('location.id = :locationId', { locationId: location.id })
             .getMany();
+
     }
 }
