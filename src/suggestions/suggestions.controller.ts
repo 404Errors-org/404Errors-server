@@ -5,6 +5,7 @@ import { Suggestion } from './suggestions.entity';
 import { UserId } from '../decorators/user-id.decorator';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
+import { WithoutDisabilityGuard } from '../common/guards/without-disability.guard';
 
 @UseGuards(AuthGuard)
 @Controller('suggestions')
@@ -16,6 +17,7 @@ export class SuggestionsController {
     @ApiBody({ type: CreateSuggestionDto })
     @ApiQuery({ name: 'locationId', type: 'string' })
     @ApiBearerAuth()
+    @UseGuards(WithoutDisabilityGuard)
     @Post()
     async createSuggestion(
         @UserId() userId: string,
