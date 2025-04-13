@@ -42,10 +42,11 @@ export class AuthService {
                 STORAGE_BUCKETS.DISABILITY_CERTIFICATION,
                 disabilityCertification
             );
+
+            registeredUser.hasDisability = true;
+            await this.usersService.saveUser(registeredUser);
         }
 
-        registeredUser.hasDisability = true;
-        await this.usersService.saveUser(registeredUser);
         await this.emailService.sendVerificationCodeByEmail(registeredUser.email, confirmationCode);
     }
 
