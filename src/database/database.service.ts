@@ -7,6 +7,7 @@ import { DatabaseFile } from '../files/files.entity';
 import { join } from 'path';
 import { Location } from '../locations/locations.entity';
 import { Feedback } from '../feedbacks/feedbacks.entity';
+import { Suggestion } from '../suggestions/suggestions.entity';
 
 @Injectable()
 export class DatabaseService {
@@ -20,7 +21,7 @@ export class DatabaseService {
             username: this.configService.get<string>('PGUSER'),
             password: this.configService.get<string>('PGPASSWORD'),
             database: this.configService.get<string>('PGDATABASE'),
-            entities: [User, Token, DatabaseFile, Location, Feedback],
+            entities: [User, Token, DatabaseFile, Location, Feedback, Suggestion],
             synchronize: true,
             migrations: [join(__dirname, 'migrations/*.{js,ts}')],
             logging: true,
