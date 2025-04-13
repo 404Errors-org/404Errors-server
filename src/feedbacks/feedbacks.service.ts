@@ -63,7 +63,7 @@ export class FeedbacksService {
 
         return this.feedbackRepository
             .createQueryBuilder()
-            .where('locationId := location', { locationId: location.id })
+            .where('locationId := locationId', { locationId: location.id })
             .getMany();
     }
 }
