@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { GeometryDto } from './dto/geometry.dto';
 import { Feedback } from '../feedbacks/feedbacks.entity';
+import { Suggestion } from '../suggestions/suggestions.entity';
 
 @Entity()
 export class Location {
@@ -51,4 +52,7 @@ export class Location {
 
     @OneToMany(() => Feedback, feedback => feedback.location, { cascade: true })
     feedbacks: Array<Feedback>;
+
+    @OneToMany(() => Suggestion, suggestion => suggestion.location)
+    suggestions: Array<Suggestion>;
 }
