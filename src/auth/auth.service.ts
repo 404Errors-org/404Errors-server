@@ -33,7 +33,7 @@ export class AuthService {
         const registeredUser = await this.usersService.createUser({
             ...registerDto,
             confirmationCode,
-            password: hashedPassword
+            password: hashedPassword,
         });
 
         if (registerDto.hasDisability && disabilityCertification) {

@@ -17,6 +17,7 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { DatabaseService } from './database/database.service';
 import { DatabaseModule } from './database/database.module';
 import { LocationsModule } from './locations/locations.module';
+import { FeedbacksModule } from './feedbacks/feedbacks.module';
 dotenv.config();
 
 @Module({
@@ -50,7 +51,8 @@ dotenv.config();
         TokensModule,
         FilesModule,
         MulterModule.register({ dest: "./uploads" }),
-        LocationsModule
+        LocationsModule,
+        FeedbacksModule
     ],
     exports: [
         TypeOrmModule,

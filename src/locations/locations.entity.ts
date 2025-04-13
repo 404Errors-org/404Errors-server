@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { GeometryDto } from './dto/geometry.dto';
+import { Feedback } from '../feedbacks/feedbacks.entity';
 
 @Entity()
 export class Location {
@@ -31,4 +32,15 @@ export class Location {
     @ApiProperty({ type: GeometryDto })
     @Column({ type: 'jsonb' })
     readonly geometry: GeometryDto;
+
+    @ApiProperty()
+    @Column({ default: 10 })
+    readonly rating: number;
+
+    @ApiProperty()
+    @Column({ default: 5 })
+    readonly accessibilityRate: number;
+
+    @OneToMany(() => Feedback, feedback => feedback.location, { cascade: true })
+    readonly feedbacks: Array<Feedback>;
 }

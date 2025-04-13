@@ -15,12 +15,17 @@ export class LocationsSeeder {
         await this.locationRepository.clear();
 
         for (const locationData of LOCATIONS_SEEDING_DATA) {
+            const accessibilityRate = locationData.tags.length;
+            
             await this.locationRepository
-                .createQueryBuilder()
-                .insert()
-                .into(Location)
-                .values(locationData)
-                .execute();
+              .createQueryBuilder()
+              .insert()
+              .into(Location)
+              .values({
+                  ...locationData,
+                  accessibilityRate,
+              })
+              .execute();
         }
     }
 }

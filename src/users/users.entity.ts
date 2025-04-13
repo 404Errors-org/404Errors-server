@@ -2,7 +2,7 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinColumn,
+    JoinColumn, OneToMany,
     OneToOne,
     PrimaryGeneratedColumn, Unique, UpdateDateColumn,
 } from 'typeorm';
@@ -10,6 +10,7 @@ import {Token} from "../tokens/tokens.entity";
 import {ApiProperty} from "@nestjs/swagger";
 import {GetUserProfileDto} from "./dto/get-user-profile.dto";
 import {DatabaseFile} from "../files/files.entity";
+import { Feedback } from '../feedbacks/feedbacks.entity';
 
 @Entity({ name: "user" })
 @Unique(["email"])
@@ -61,6 +62,9 @@ export class User {
     })
     @JoinColumn()
     file: DatabaseFile;
+
+    @OneToMany(() => Feedback, feedback => feedback.user, { onDelete: "CASCADE" })
+    feedbacks: Array<Feedback>;
 
     @CreateDateColumn()
     createdAt: Date;

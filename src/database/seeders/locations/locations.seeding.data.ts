@@ -2,7 +2,7 @@ import { GeometryDto } from '../../../locations/dto/geometry.dto';
 
 export class LocationSeedingDto {
     readonly name: string;
-    readonly    category: string;
+    readonly category: string;
     readonly phoneNumber: string;
     readonly tags: Array<string>;
     readonly geometry: GeometryDto;
