@@ -15,4 +15,6 @@ export enum ExceptionMessage {
     TOKEN_NOT_FOUND="Token not found",
     LOCATION_ALREADY_EXISTS="Location already exists",
     CONFIRMATION_CODES_DONT_MATCH="Confirm codes don`t match",
+    LOCATION_NOT_FOUND="Location not found",
+    USER_ALREADY_LEFT_FEEDBACK="You already left feedback"
 }
