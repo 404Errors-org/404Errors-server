@@ -14,4 +14,5 @@ export enum ExceptionMessage {
     PASSWORDS_DONT_MATCH="Passwords do not match",
     TOKEN_NOT_FOUND="Token not found",
     LOCATION_ALREADY_EXISTS="Location already exists",
+    CONFIRMATION_CODES_DONT_MATCH="Confirm codes don`t match",
 }
