@@ -7,40 +7,48 @@ import { Feedback } from '../feedbacks/feedbacks.entity';
 export class Location {
     @ApiProperty()
     @PrimaryGeneratedColumn("uuid")
-    readonly id: string;
+    id: string;
 
     @ApiProperty()
     @Column()
-    readonly name: string;
+    name: string;
 
     @ApiProperty()
     @Column()
-    readonly category: string;
+    category: string;
 
     @ApiProperty()
     @Column({ nullable: true })
-    readonly phoneNumber: string;
+    phoneNumber: string;
 
     @ApiProperty()
     @Column()
-    readonly locationDefaultId: string;
+    locationDefaultId: string;
+
+    @ApiProperty()
+    @Column({ nullable: true })
+    street: string;
+
+    @ApiProperty()
+    @Column({ nullable: true })
+    webSite: string;
 
     @ApiProperty()
     @Column('text', { array: true })
-    readonly tags: Array<string>;
+    tags: Array<string>;
 
     @ApiProperty({ type: GeometryDto })
     @Column({ type: 'jsonb' })
-    readonly geometry: GeometryDto;
+    geometry: GeometryDto;
 
     @ApiProperty()
     @Column({ default: 10 })
-    readonly rating: number;
+    rating: number;
 
     @ApiProperty()
     @Column({ default: 5 })
-    readonly accessibilityRate: number;
+    accessibilityRate: number;
 
     @OneToMany(() => Feedback, feedback => feedback.location, { cascade: true })
-    readonly feedbacks: Array<Feedback>;
+    feedbacks: Array<Feedback>;
 }
