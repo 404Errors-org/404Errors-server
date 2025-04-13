@@ -37,10 +37,14 @@ export class SuggestionsService {
         }
 
         const suggestionInsertResult = await this.suggestionRepository
-            .createQueryBuilder('suggestion')
+            .createQueryBuilder()
             .insert()
             .into(Suggestion)
-            .values(createSuggestionDto)
+            .values({
+                ...createSuggestionDto,
+                user,
+                location
+            })
             .execute();
 
         const suggestion = suggestionInsertResult.raw[0] as Suggestion;
