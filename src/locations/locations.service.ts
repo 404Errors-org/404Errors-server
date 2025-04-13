@@ -6,6 +6,7 @@ import { InsertResult, Repository } from 'typeorm';
 import { ExceptionMessage } from '../utils/exception-message.enum';
 import { LocationsFilterDto } from './dto/locations-filter.dto';
 import { LocationCategoriesDto } from './dto/location-types.dto';
+import { UpdateLocationTagsDto } from './dto/update-location-tags.dto';
 
 @Injectable()
 export class LocationsService {
@@ -73,6 +74,18 @@ export class LocationsService {
             throw new NotFoundException(ExceptionMessage.LOCATION_NOT_FOUND);
         }
         return location;
+    }
+
+    async updateLocationTags(
+        id: string,
+        updateLocationTags: UpdateLocationTagsDto
+    ): Promise<Location> {
+        const location = await this.getLocationById(id);
+
+        location.tags = updateLocationTags.tags;
+        location.accessibilityRate = updateLocationTags.tags.length;
+
+        return this.save(location);
     }
 
     async save(locationEntity: Location): Promise<Location> {
