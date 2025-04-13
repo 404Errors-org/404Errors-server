@@ -25,7 +25,9 @@ export class FeedbacksService {
         const existingFeedbackByUser = await this.feedbackRepository
             .createQueryBuilder('feedback')
             .leftJoin('feedback.user', 'user')
+            .leftJoin('feedback.location', 'location')
             .where('user.id = :userId', { userId: user.id })
+            .andWhere('location.id = :locationId', { locationId })
             .getOne();
 
         if (existingFeedbackByUser) {
