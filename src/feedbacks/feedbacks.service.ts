@@ -57,7 +57,7 @@ export class FeedbacksService {
             totalRating += feedback.rate;
         }
 
-        const averageRating = Math.round((totalRating / locationFeedbacks.length) * 10) / 10;
+        const averageRating = Math.round((totalRating / (locationFeedbacks.length + 1)) * 10) / 10;
         location.rating = averageRating;
         await this.locationsService.save(location);
 
