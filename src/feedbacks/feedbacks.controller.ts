@@ -6,7 +6,6 @@ import { FeedbacksService } from './feedbacks.service';
 import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
 
-@UseGuards(AuthGuard)
 @Controller('feedbacks')
 export class FeedbacksController {
     constructor(private feedbackService: FeedbacksService) {}
@@ -15,6 +14,7 @@ export class FeedbacksController {
     @ApiBody({ type: CreateFeedbackDto })
     @ApiQuery({ name: 'locationId', type: String })
     @ApiBearerAuth()
+    @UseGuards(AuthGuard)
     @Post()
     async createFeedback(
         @UserId() userId: string,
